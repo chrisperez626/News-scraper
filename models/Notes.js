@@ -3,11 +3,11 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var NotesSchema = new Schema({
-	Title: {
+	title: {
 		type: String,
 		required: true
 	},
-	Body: {
+	body: {
 		type: String,
 		required: true
 	}

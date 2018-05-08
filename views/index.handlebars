@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id="Article-dump">
+		{{#each articles}}
+			<div class="article">
+				<h2>{{this.title}}</h2>
+				<h3>{{this.link}}</h3>
+			</div>
+		{{/each}}
+	</div>
+	<form>
+		<input type="text" name="title">
+		<input type="text" name="body">
+		<button type="submit"></button>
+	</form>
+</body>
+</html>

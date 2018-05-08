@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 var cheerio = require('cheerio');
 var request = require('request');
+var mongoose = require("mongoose");
 
 var app = express();
 
@@ -13,18 +14,33 @@ var db = require("./models");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
+require("./controllers/articleRoutes")(app);
+
 mongoose.connect("mongodb://localhost/News-Scraper")
 
-request("http://time.com/section/politics/", function(err, response, html){
+request("https://www.npr.org/sections/news/", function(err, response, html){
 	var $ = cheerio.load(html);
 
-	var results = {};
+	$("div.item-info").each(function(i, element){
+		var results = {};
 
-	$("article.type-article").each(function(i, element){
-		var link = $(element).children("a").attr("href");
+		results.link = $(element).children("h2").children("a").attr("href");
 
-		console.log("time.com" + link)
-	})
+		results.title = $(element).children("h2").children("a").text();
+
+		results.summary = $(element).children("p").children("a").text();
+
+		if(results.summary.includes('\'')){
+			return results.summary.replace("\'","'");
+		}
+
+		db.Articles.create(results).catch(function(err){
+			throw err;
+		})
+	})	
 })
 
 app.listen(PORT, function(){
