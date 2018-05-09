@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>News Scraper</title>
 	<style type="text/css">
 		#Article-dump {
 			overflow: auto;
@@ -21,7 +21,6 @@
 	</style>
 </head>
 <body>
-	<a href="/saved"><button>Saved</button></a>
 	<form>
 		<input type="text" name="title">
 		<br>
@@ -31,12 +30,13 @@
 	</form>
 	<div id="Article-dump">
 		{{#each Articles}}
-			<div class="article">
-				<h2>{{title}}</h2>
-				<h3>{{link}}</h3>
-				<p>{{summary}}</p>
-				<button>Save</button>
-			</div>
+			{{#if saved}}
+				<div class="article">
+					<h2>{{title}}</h2>
+					<h3>{{link}}</h3>
+					<p>{{summary}}</p>
+				</div>
+			{{/if}}
 		{{/each}}
 	</div>
 </body>
