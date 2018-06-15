@@ -18,6 +18,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 require("./controllers/articleRoutes")(app);
+// require("./controllers/noteRoutes")(app);
 
 mongoose.connect("mongodb://localhost/News-Scraper")
 
