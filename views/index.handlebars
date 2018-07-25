@@ -31,11 +31,11 @@
 	</form>
 	<div id="Article-dump">
 		{{#each Articles}}
-			<div class="article">
+			<div id={{_id}} class="article">
 				<h2>{{title}}</h2>
 				<h3>{{link}}</h3>
 				<p>{{summary}}</p>
-				<button id="save-button">Save</button>
+				<button class="save-button" id={{_id}}>Save</button>
 			</div>
 		{{/each}}
 	</div>
